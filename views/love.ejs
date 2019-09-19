@@ -1,0 +1,12 @@
+<h1>Welcome to the <%= thing %></h1>
+
+<%if (thing == "rusty") { %>
+	<p>Great Choice</p>
+<% }  else { %>
+	<p>OH Poor Man</p>
+
+<% } %>
+
+<%for (var i = 0; i <  thing.length; i++) { %>
+	<p><%= thing[i] %></p>
+<% } %>

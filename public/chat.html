@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, intial-scale=1, user-scalable=no">
+	<title>Socket.io</title>
+	<link rel="stylesheet" href="./css/style.css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+	  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	  crossorigin="anonymous"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.1.0/mustache.min.js"></script>
+	</head>
+<body class="chat">
+
+	<div class="chat__sidebar">
+		<h3>People</h3>
+		 <div id="users"></div>
+	</div>
+	<div class="chat__main">
+		<ol id="msg-list" class="chat__messages"></ol>
+			<div class="chat__footer">
+				<form action="" id="msg-form">
+					<input name="msg" type="text" placeholder="" autofocus autocomplete="off" />
+					<button>Send</button>
+				</form>
+				<button id="send-location">Send location</button>
+			</div>
+	</div>
+	
+	<script id="message-template" type="text/template"> 
+	<p>{{text}}</p>
+	</script>
+
+<script src='/socket.io/socket.io.js'></script>
+	
+<script src='./js/chat.js'></script>
+</body>
+</html>
