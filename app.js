@@ -66,21 +66,21 @@ io.on('connection',(socket)=>{
 
 
 		socket.on('createMsg', (argsm, callback)=>{
-			console.log(argsm);
-			callback();
 
-			io.emit('newMsg',{
-				from: 'User',
+			var user = users.getUser(socket.id)
+			io.to(user.room).emit('newMsg',{
+				from : user.name,
 				text : argsm.text,
 				createdAt: moment().valueOf()
 			});
+			callback();
 		});
 	});
 
 	socket.on('location',(argsm,callback)=>{
-		console.log(argsm);
-		io.emit('newLocation',{
-			from: 'User',
+		var user = users.getUser(socket.id)
+		io.to(user.room).emit('newLocation',{
+			from: user.name,
 			url: `https://www.google.com/maps?q=${argsm.latitude},${argsm.longitude}`,
 			createdAt: moment().valueOf()
 			

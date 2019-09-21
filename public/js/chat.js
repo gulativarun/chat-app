@@ -61,7 +61,7 @@ socket.on('disconnect',function(){
 });
 
 socket.on('newMsg', function(argsm){
-		
+	console.log(argsm);
 	var formattedTime = moment(argsm.createdAt).format('h:mm a');
 	var li = $('<li></li>');
 	li.text(`${argsm.from} ${formattedTime}: ${argsm.text}`);
@@ -86,7 +86,6 @@ $('#msg-form').on('submit', function (e) {
 	e.preventDefault();
 
 	socket.emit('createMsg',{
-		from: 'User',
 		text: $('[name=msg]').val()
 	},
 	function(){
