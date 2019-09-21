@@ -1,3 +1,21 @@
+
+(function($){
+  $.deparam = $.deparam || function(uri){
+    if(uri === undefined){
+      uri = window.location.search;
+    }
+    var queryString = {};
+    uri.replace(
+      new RegExp(
+        "([^?=&]+)(=([^&#]*))?", "g"),
+        function($0, $1, $2, $3) {
+        	queryString[$1] = decodeURIComponent($3.replace(/\+/g, '%20'));
+        }
+      );
+      return queryString;
+    };
+})(jQuery);
+
 var socket = io();
 
 function scrollToBottom(){
@@ -18,6 +36,24 @@ function scrollToBottom(){
 
 socket.on('connect',function(){
 	console.log('connected to server');
+	var params = $.deparam(window.location.search);
+
+	socket.emit('join', params,function(err){
+			if(err){
+				window.location.href = "/";
+			}
+	});
+});
+
+socket.on('updateUserList', function(users){
+	console.log(users);
+	var ol = $('<ol></ol>');
+	users.forEach(function(user){
+		ol.append($('<li></li>').text(user));
+	});
+
+	$('#users').html(ol);
+
 });
 
 socket.on('disconnect',function(){
@@ -81,4 +117,6 @@ locationButton.on('click', function(){
 		return alert('Sorry, Feature not available');
 	}
 });
+
+
 
